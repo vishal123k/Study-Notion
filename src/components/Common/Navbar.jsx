@@ -20,12 +20,12 @@ function Navbar() {
   const [subLinks, setSubLinks] = useState([])
   const [loading, setLoading] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       setLoading(true)
       try {
         const res = await apiConnector("GET", categories.CATEGORIES_API)
+        console.log("Fetched categories:", res.data.data)
         setSubLinks(res.data.data)
       } catch (error) {
         console.log("Could not fetch Categories.", error)
@@ -34,15 +34,15 @@ function Navbar() {
     })()
   }, [])
 
+
   const matchRoute = (route) => {
     return matchPath({ path: route }, location.pathname)
   }
 
   return (
     <div
-      className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 ${
-        location.pathname !== "/" ? "bg-richblack-800" : ""
-      } transition-all duration-200`}
+      className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 ${location.pathname !== "/" ? "bg-richblack-800" : ""
+        } transition-all duration-200`}
     >
       <div className="flex w-11/12 max-w-maxContent items-center justify-between">
         {/* Logo */}
@@ -57,11 +57,10 @@ function Navbar() {
               <li key={index}>
                 {link.title === "Catalog" ? (
                   <div
-                    className={`group relative flex cursor-pointer items-center gap-1 ${
-                      matchRoute("/catalog/:catalogName")
-                        ? "text-yellow-25"
-                        : "text-richblack-25"
-                    }`}
+                    className={`group relative flex cursor-pointer items-center gap-1 ${matchRoute("/catalog/:catalogName")
+                      ? "text-yellow-25"
+                      : "text-richblack-25"
+                      }`}
                   >
                     <p>{link.title}</p>
                     <BsChevronDown />
@@ -92,11 +91,10 @@ function Navbar() {
                 ) : (
                   <Link to={link?.path}>
                     <p
-                      className={`${
-                        matchRoute(link?.path)
-                          ? "text-yellow-25"
-                          : "text-richblack-25"
-                      }`}
+                      className={`${matchRoute(link?.path)
+                        ? "text-yellow-25"
+                        : "text-richblack-25"
+                        }`}
                     >
                       {link.title}
                     </p>
@@ -194,24 +192,36 @@ function Navbar() {
           <div className="border-t border-richblack-600 pt-4">
             {token === null ? (
               <div className="flex flex-col gap-2">
-                <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
-                  <button className="w-full rounded-md border border-richblack-700 bg-richblack-800 px-4 py-2 text-richblack-100">
-                    Log in
-                  </button>
-                </Link>
-                <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)}>
-                  <button className="w-full rounded-md border border-richblack-700 bg-richblack-800 px-4 py-2 text-richblack-100">
-                    Sign up
-                  </button>
-                </Link>
-              </div>
-            ) : (
-              <ProfileDropdown />
-            )}
+                {/* <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}> */}
+                <button
+                  className="w-full rounded-md border border-richblack-700 bg-richblack-800 px-4 py-2 text-richblack-100"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false)
+                    window.location.href = "/login"
+                  }}
+                >
+                  Log in
+                </button>
+                {/* </Link> */}
+            {/* <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)}> */}
+              <button className="w-full rounded-md border border-richblack-700 bg-richblack-800 px-4 py-2 text-richblack-100"
+              
+              onClick={() => {
+                setIsMobileMenuOpen(false)
+                window.location.href = "/login"
+              }}>
+                Sign up
+              </button>
+            {/* </Link> */}
           </div>
+          ) : (
+          <ProfileDropdown />
+            )}
         </div>
-      )}
-    </div>
+        </div>
+  )
+}
+    </div >
   )
 }
 

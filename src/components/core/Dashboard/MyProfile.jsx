@@ -50,11 +50,10 @@ export default function MyProfile() {
           </IconBtn>
         </div>
         <p
-          className={`${
-            user?.additionalDetails?.about
+          className={`${user?.additionalDetails?.about
               ? "text-richblack-5"
               : "text-richblack-400"
-          } text-sm font-medium`}
+            } text-sm font-medium`}
         >
           {user?.additionalDetails?.about ?? "Write Something About Yourself"}
         </p>
