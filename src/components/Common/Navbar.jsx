@@ -208,7 +208,7 @@ function Navbar() {
               
               onClick={() => {
                 setIsMobileMenuOpen(false)
-                window.location.href = "/login"
+                window.location.href = "/signup"
               }}>
                 Sign up
               </button>
